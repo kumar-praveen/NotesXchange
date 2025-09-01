@@ -1,0 +1,157 @@
+import { User } from "../models/userModel.js";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+
+export const register = async (req, res) => {
+  try {
+    if (!req.body) {
+      return res.status(400).json({
+        message: "Please provide the required details",
+        success: false,
+      });
+    }
+
+    const { fullname, email, password } = req.body;
+
+    if (!fullname) {
+      return res
+        .status(400)
+        .json({ message: "Fullname is required", success: false });
+    }
+
+    if (!email) {
+      return res
+        .status(400)
+        .json({ message: "Email is required", success: false });
+    }
+
+    if (!password) {
+      return res
+        .status(400)
+        .json({ message: "Password is required", success: false });
+    }
+
+    if (password.length < 6) {
+      return res.status(400).json({
+        message: "Password must be greater than 6 characters",
+        success: false,
+      });
+    }
+
+    if (password.length > 16) {
+      return res.status(400).json({
+        message: "Password must be smaller than 16 characters",
+        success: false,
+      });
+    }
+
+    const user = await User.findOne({ email });
+
+    if (user) {
+      return res.status(400).json({ message: "User already exits" });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = await User.create({
+      fullname,
+      email,
+      password: hashedPassword,
+    });
+
+    await newUser.save();
+    return res.status(200).json({
+      message: "User registered successfully",
+      user: {
+        fullname: newUser.fullname,
+        email: newUser.email,
+      },
+      success: true,
+    });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "Internal Server Error", success: false });
+  }
+};
+
+export const login = async (req, res) => {
+  try {
+    if (!req.body) {
+      return res.status(400).json({
+        message: "Please provide the required details",
+        success: false,
+      });
+    }
+
+    const { email, password } = req.body;
+
+    if (!email) {
+      return res
+        .status(400)
+        .json({ message: "Email is required", success: false });
+    }
+
+    if (!password) {
+      return res
+        .status(400)
+        .json({ message: "Password is required", success: false });
+    }
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res
+        .status(400)
+        .json({ message: "User doesn't exist", success: false });
+    }
+
+    const isPasswordMatch = await bcrypt.compare(password, user.password);
+    if (!isPasswordMatch) {
+      return res
+        .status(400)
+        .json({ message: "Password is incorrect", success: false });
+    }
+
+    const tokenData = {
+      userId: user._id,
+    };
+
+    const token = await jwt.sign(tokenData, process.env.MY_SECRET_KEY, {
+      expiresIn: "1d",
+    });
+
+    return res
+      .status(200)
+      .cookie("token", token, {
+        maxAge: 24 * 60 * 60 * 1000,
+        httpOnly: true,
+        sameSite: "strict",
+      })
+      .json({
+        message: `Welcome back ${user.fullname}`,
+        user: {
+          id: user._id,
+          fullname: user.fullname,
+          email: user.email,
+        },
+        token,
+        success: true,
+      });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "Internal server error", success: false });
+  }
+};
+
+export const logout = async (req, res) => {
+  try {
+    return res
+      .status(200)
+      .cookie("token", "", { expires: new Date(Date.now()), httpOnly: true })
+      .json({ message: "User logged out successfully", success: true });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "Internal server error", success: false });
+  }
+};
