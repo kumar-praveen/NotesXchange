@@ -16,7 +16,7 @@ const router = express.Router();
 router
   .post("/upload", isAuthenticated, upload.single("file"), uploadNote)
   .get("/all", getAllNotes)
-  .get("/search", isAuthenticated, searchNotes)
+  .get("/search", searchNotes)
   .put(
     "/update/:id",
     isAuthenticated,

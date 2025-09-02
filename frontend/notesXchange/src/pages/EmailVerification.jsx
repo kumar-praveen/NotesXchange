@@ -1,4 +1,4 @@
-import {  useState } from "react";
+import { useState } from "react";
 import { Mail, Lock, Loader2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -13,8 +13,6 @@ export default function EmailVerification() {
 
   const { backendUrl, userData, setIsLoggedin, reset } = useAppStore();
 
-  
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -27,7 +25,7 @@ export default function EmailVerification() {
       if (response.data.success) {
         console.log(response);
         toast.success(response.data.message || "Email verified successfully");
-        navigate("/");
+        navigate("/login");
       }
     } catch (error) {
       console.log(error);
@@ -38,7 +36,7 @@ export default function EmailVerification() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-[550px] bg-gradient-to-r from-indigo-50 via-white to-indigo-100">
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-indigo-50 via-white to-indigo-100 px-3">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8">
         <h2 className="text-3xl font-bold text-center text-gray-800">
           Email Verification

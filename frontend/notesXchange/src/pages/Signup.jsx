@@ -1,4 +1,4 @@
-import {  useState } from "react";
+import { useState } from "react";
 import { User, Mail, Lock, Loader2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -47,7 +47,7 @@ export default function Signup() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-indigo-50 via-white to-indigo-100">
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-indigo-50 via-white to-indigo-100 px-3">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8">
         <h2 className="text-3xl font-bold text-center text-gray-800">
           Create Account
@@ -99,7 +99,7 @@ export default function Signup() {
             disabled={loader}
           >
             {loader && <Loader2 className="animate-spin" />}
-            Signup
+            {loader ? "Signing up.." : "Signup"}
           </button>
         </form>
 
