@@ -22,6 +22,10 @@ app.use(
 app.use("/api/user", userRoute);
 app.use("/api/notes", noteRoute);
 
+app.get("/test", (req, res) => {
+  res.send("Backend is running");
+});
+
 app.listen(process.env.PORT, () => {
   console.log("Server is started and listening to port: ", process.env.PORT);
   connectDB();
