@@ -1,6 +1,8 @@
 import { User } from "../models/userModel.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { sendEmail } from "../utils/nodemailer.js";
+import { generateVerificationCode } from "../utils/generateVerificationCode.js";
 
 export const register = async (req, res) => {
   try {
@@ -52,25 +54,98 @@ export const register = async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
+
     const newUser = await User.create({
       fullname,
       email,
       password: hashedPassword,
     });
 
+    const verificationCode = generateVerificationCode();
+    newUser.verificationCode = verificationCode;
+    await sendEmail(verificationCode, newUser.email, newUser.fullname);
     await newUser.save();
-    return res.status(200).json({
-      message: "User registered successfully",
-      user: {
-        fullname: newUser.fullname,
-        email: newUser.email,
-      },
-      success: true,
-    });
+
+    return res
+      .status(200)
+      .json({ message: "email sent successfully", success: true });
   } catch (error) {
     return res
       .status(500)
       .json({ message: "Internal Server Error", success: false });
+  }
+};
+
+export const verifyEmail = async (req, res) => {
+  try {
+    if (!req.body) {
+      return res
+        .status(400)
+        .json({ message: "Email and OTP is missing", success: false });
+    }
+
+    const { email, otp } = req.body;
+    if (!email || !otp) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Email or OTP is missing" });
+    }
+
+    const userAllEntries = await User.find({
+      email,
+      isVerified: false,
+    }).sort({ createdAt: -1 });
+
+    if (!userAllEntries) {
+      return res
+        .status(400)
+        .json({ success: false, message: "User doesn't exist" });
+    }
+
+    let user;
+    if (userAllEntries > 1) {
+      user = userAllEntries[0];
+      await User.deleteMany({
+        _id: { $ne: user._id },
+        email,
+        isVerified: false,
+      });
+    } else {
+      user = userAllEntries[0];
+    }
+
+    if (user.verificationCode != Number(otp)) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid OTP entered" });
+    }
+
+    const currTime = Date.now();
+
+    const verificationCodeExpire = new Date(
+      user.verificationCodeExpiry
+    ).getTime();
+
+    if (currTime > verificationCodeExpire) {
+      return res
+        .status(400)
+        .json({ success: false, message: "OTP has been expired" });
+    }
+
+    user.isVerified = true;
+    user.verificationCode = null;
+    user.verificationCodeExpiry = null;
+    await user.save({ validateModifiedOnly: true });
+    await sendEmail(null, email, user.fullname);
+    return res.status(200).json({
+      success: true,
+      message: `Welcome ${user.fullname.split(" ")[0]}`,
+    });
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json({ success: false, message: "Internal Server Error" });
   }
 };
 

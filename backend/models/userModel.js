@@ -22,7 +22,10 @@ const userSchema = new mongoose.Schema(
       type: Number,
       default: null,
     },
-    verificationCodeExpiry: Date,
+    verificationCodeExpiry: {
+      type: Date,
+      default: () => Date.now() + 10 * 60 * 1000,
+    },
   },
   { timestamps: true }
 );

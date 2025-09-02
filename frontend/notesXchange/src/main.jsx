@@ -8,8 +8,10 @@ import PageNotFound from "./components/PageNotFound.jsx";
 import AppLayout from "./pages/AppLayout.jsx";
 import About from "./pages/About.jsx";
 import NotesPage from "./pages/NotesPage.jsx";
-import Auth from "./pages/Auth.jsx";
 import NotePreview from "./components/NotePreview.jsx";
+import EmailVerification from "./pages/EmailVerification.jsx";
+import Login from "./pages/Login.jsx";
+import Signup from "./pages/Signup.jsx";
 
 const router = createBrowserRouter([
   {
@@ -25,8 +27,12 @@ const router = createBrowserRouter([
         element: <About />,
       },
       {
-        path: "/auth",
-        element: <Auth />,
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/signup",
+        element: <Signup />,
       },
       {
         path: "/notes",
@@ -35,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "/notes/:id",
         element: <NotePreview />,
+      },
+      {
+        path: "/verify-email",
+        element: <EmailVerification />,
       },
     ],
   },

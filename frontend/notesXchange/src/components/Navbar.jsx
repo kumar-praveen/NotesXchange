@@ -123,7 +123,7 @@ export default function Navbar() {
             </Popover>
           ) : (
             <NavLink
-              to="/auth"
+              to="/login"
               className="px-4 sm:px-5 py-2 text-sm sm:text-base bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg shadow hover:opacity-90 transition font-medium"
             >
               Login
@@ -199,7 +199,7 @@ export default function Navbar() {
             </div>
           ) : (
             <NavLink
-              to="/auth"
+              to="/login"
               className="block px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg shadow hover:opacity-90 transition text-center font-medium text-sm sm:text-base"
               onClick={() => setIsOpen(false)}
             >

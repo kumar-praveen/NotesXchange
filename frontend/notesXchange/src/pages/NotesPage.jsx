@@ -20,7 +20,7 @@ export default function NotesPage() {
 
   useEffect(() => {
     if (!isLoggedin) {
-      navigate("/auth");
+      navigate("/signup");
     }
     fetchNotes();
   }, []);
