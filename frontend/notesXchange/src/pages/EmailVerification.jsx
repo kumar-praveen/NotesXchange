@@ -1,13 +1,11 @@
-import { useContext, useEffect, useState } from "react";
-import { User, Mail, Lock, Loader2 } from "lucide-react";
-// import { AppContext } from "../store/useAppStore";
+import {  useState } from "react";
+import { Mail, Lock, Loader2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useAppStore } from "../store/useAppStore";
 
 export default function EmailVerification() {
-  const [email, setEmail] = useState("");
   const [otp, setOtp] = useState();
   const [loading, setLoading] = useState(false);
 
@@ -15,7 +13,7 @@ export default function EmailVerification() {
 
   const { backendUrl, userData, setIsLoggedin, reset } = useAppStore();
 
-  useEffect(() => console.log(userData), []);
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,7 +31,7 @@ export default function EmailVerification() {
       }
     } catch (error) {
       console.log(error);
-      toast.error(error.response.data.error || "Failed to verify OTP");
+      toast.error(error.response.data.message || "Failed to verify OTP");
     } finally {
       setLoading(false);
     }

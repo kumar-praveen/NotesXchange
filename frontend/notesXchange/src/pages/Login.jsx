@@ -1,6 +1,5 @@
-import { useContext, useState } from "react";
-import { User, Mail, Lock, Loader2 } from "lucide-react";
-// import { AppContext } from "../store/useAppStore";
+import { useState } from "react";
+import { Mail, Lock, Loader2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -73,7 +72,6 @@ export default function Login() {
             />
           </div>
 
-          {/* Password */}
           <div className="relative">
             <Lock className="absolute left-3 top-3 text-gray-400" size={18} />
             <input
@@ -86,7 +84,6 @@ export default function Login() {
             />
           </div>
 
-          {/* Forgot password */}
 
           <div className="text-right">
             <a href="#" className="text-sm text-indigo-500 hover:underline">
@@ -94,7 +91,6 @@ export default function Login() {
             </a>
           </div>
 
-          {/* Submit button */}
           <button
             type="submit"
             className={
@@ -107,7 +103,6 @@ export default function Login() {
           </button>
         </form>
 
-        {/* Login link */}
         <p className="text-center text-gray-600 mt-5 text-sm">
           Don't have account?
           <span
@@ -116,7 +111,8 @@ export default function Login() {
             }}
             className="text-indigo-600 font-medium hover:underline cursor-pointer"
           >
-            {" "}Signup here
+            {" "}
+            Signup here
           </span>
         </p>
       </div>

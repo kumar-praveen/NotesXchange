@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import {  useState } from "react";
 import { User, Mail, Lock, Loader2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -13,7 +13,7 @@ export default function Signup() {
 
   const navigate = useNavigate();
 
-  const { backendUrl, setUserData, setIsLoggedin, reset } = useAppStore();
+  const { backendUrl, setUserData, userData } = useAppStore();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,10 +32,15 @@ export default function Signup() {
 
       if (response.data.success) {
         setUserData(response.data.user);
+        toast.success(response.data.message);
         navigate("/verify-email");
+      } else {
+        toast.error("Failed to verify otp");
+        navigate("/");
       }
     } catch (err) {
       toast.error(err.response?.data?.message);
+      navigate("/");
     } finally {
       setLoader(false);
     }
@@ -47,7 +52,7 @@ export default function Signup() {
         <h2 className="text-3xl font-bold text-center text-gray-800">
           Create Account
         </h2>
-        <p className="text-center text-gray-500 mb-6">Login</p>
+        <p className="text-center text-gray-500 mb-6">Create Your Account</p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="relative">

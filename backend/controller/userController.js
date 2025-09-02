@@ -63,12 +63,15 @@ export const register = async (req, res) => {
 
     const verificationCode = generateVerificationCode();
     newUser.verificationCode = verificationCode;
+    console.log("Going to send the email");
     await sendEmail(verificationCode, newUser.email, newUser.fullname);
     await newUser.save();
 
-    return res
-      .status(200)
-      .json({ message: "email sent successfully", success: true });
+    return res.status(200).json({
+      message: "OTP sent successfully on your email",
+      success: true,
+      user: newUser,
+    });
   } catch (error) {
     return res
       .status(500)

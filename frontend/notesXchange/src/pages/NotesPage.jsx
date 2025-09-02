@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAppStore } from "../store/useAppStore";
@@ -54,7 +54,7 @@ export default function NotesPage() {
     setSearchQuery(query);
 
     if (query.trim() === "") {
-      setNotes(allNotes); // Reset to all notes when search is cleared
+      setNotes(allNotes);
     } else {
       const filtered = allNotes.filter(
         (note) =>
@@ -101,13 +101,11 @@ export default function NotesPage() {
 
   return (
     <div className="p-8 max-w-7xl mx-auto">
-      {/* Header */}
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold text-gray-800">Notes Library</h1>
         <AddNote onNotesUpload={fetchNotes} />
       </div>
 
-      {/* Search Bar */}
       <div className="relative w-full max-w-md mx-auto">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-indigo-600 h-5 w-5" />
         <Input
@@ -134,7 +132,6 @@ export default function NotesPage() {
         ))}
       </div>
 
-      {/* Notes Grid */}
       <div className="py-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
         {notes.map((note, index) => (
           <motion.div
@@ -145,22 +142,18 @@ export default function NotesPage() {
           >
             <Card className="shadow-md rounded-xl hover:shadow-lg transition flex flex-col h-48">
               <CardContent className="flex flex-col flex-grow">
-                {/* Title */}
                 <h2 className="text-base font-semibold text-indigo-600 mb-1">
                   {note.title}
                 </h2>
 
-                {/* Subject */}
                 <span className="w-fit inline-block text-xs text-gray-500 mb-1 bg-gray-100 px-1 py-0.5 rounded">
                   {note.subject}
                 </span>
 
-                {/* Description */}
                 <p className="text-md mt-2 text-gray-700 dark:text-gray-300 mb-3 line-clamp-2">
                   {note.description}
                 </p>
 
-                {/* Footer (sticks to bottom) */}
                 <div className="mt-auto flex justify-between items-center">
                   <Link
                     to={`/notes/${note._id}`}

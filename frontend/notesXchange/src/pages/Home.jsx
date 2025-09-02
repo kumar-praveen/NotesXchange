@@ -1,14 +1,12 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { BookOpen, Upload, Users } from "lucide-react";
-import { useContext } from "react";
 import { useAppStore } from "../store/useAppStore";
 
 const Home = () => {
   const { isLoggedin, userData } = useAppStore();
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 flex flex-col ">
-      {/* Hero Section */}
       <section className="flex flex-col items-center justify-center flex-1 px-6 py-16 text-center bg-gradient-to-b from-white to-gray-100">
         <h1 className="text-2xl font-bold">
           Hey, {isLoggedin ? userData.fullname : "User"}
@@ -59,7 +57,6 @@ const Home = () => {
         </motion.div>
       </section>
 
-      {/* Features Section */}
       <section className="bg-white py-16 px-6">
         <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">
           Why{" "}
@@ -68,7 +65,6 @@ const Home = () => {
           </span>
         </h2>
         <div className="grid gap-8 md:grid-cols-3 max-w-5xl mx-auto">
-          {/* Card 1 */}
           <motion.div
             whileHover={{ scale: 1.05 }}
             className="p-6 bg-gray-100 rounded-2xl shadow-md text-center"
@@ -81,7 +77,6 @@ const Home = () => {
             </p>
           </motion.div>
 
-          {/* Card 2 */}
           <motion.div
             whileHover={{ scale: 1.05 }}
             className="p-6 bg-gray-100 rounded-2xl shadow-md text-center"
@@ -93,7 +88,6 @@ const Home = () => {
             </p>
           </motion.div>
 
-          {/* Card 3 */}
           <motion.div
             whileHover={{ scale: 1.05 }}
             className="p-6 bg-gray-100 rounded-2xl shadow-md text-center"

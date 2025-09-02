@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 export default function About() {
   return (
     <div className="flex flex-col items-center justify-center min-h-[70vh] p-4 text-center">
-      {/* Heading */}
       <motion.h1
         className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800"
         initial={{ opacity: 0, y: -30 }}
@@ -16,7 +15,6 @@ export default function About() {
         </span>
       </motion.h1>
 
-      {/* Subtitle / Description */}
       <motion.p
         className="mt-4 max-w-2xl text-gray-600 leading-relaxed"
         initial={{ opacity: 0 }}
@@ -32,7 +30,6 @@ export default function About() {
         and connected with like-minded learners.
       </motion.p>
 
-      {/* Feature Highlights */}
       <motion.div
         className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl"
         initial={{ opacity: 0 }}

@@ -1,4 +1,4 @@
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Loader2, LogOut, Menu, UserCircleIcon, X } from "lucide-react";
 import { useState } from "react";
 import { useAppStore } from "../store/useAppStore";
