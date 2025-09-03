@@ -15,6 +15,7 @@ export default function NotesPage() {
   let [notes, setNotes] = useState([]);
   let [allNotes, setAllNotes] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const { setGlobalLoading } = useAppStore();
 
   const navigate = useNavigate();
 
@@ -27,6 +28,7 @@ export default function NotesPage() {
 
   const fetchNotes = async () => {
     try {
+      setGlobalLoading(true);
       const response = await axios.get(`${backendUrl}/api/notes/all`);
       if (response.data.success) {
         setNotes(response.data.notes);
@@ -34,6 +36,8 @@ export default function NotesPage() {
       }
     } catch (error) {
       toast.error(error.response.data.message || "Something went wrong");
+    } finally {
+      setGlobalLoading(false);
     }
   };
 
@@ -167,9 +171,6 @@ export default function NotesPage() {
           </motion.div>
         ))}
       </div>
-      {notes.length == 0 && (
-        <h1 className="text-3xl text-center">No such notes found</h1>
-      )}
     </div>
   );
 }
