@@ -83,7 +83,7 @@ export const getSingleNotes = async (req, res) => {
 };
 
 export const myUploadedNotes = async (req, res) => {
-  const userId = req.params.id;
+  const userId = req.id;
   const notes = await Note.find({ uploadedBy: userId });
 
   if (notes.length === 0) {
