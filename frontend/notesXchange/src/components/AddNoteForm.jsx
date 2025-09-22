@@ -4,6 +4,7 @@ import axios from "axios";
 import { useAppStore } from "../store/useAppStore";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { errorHandler } from "../lib/utils";
 
 export default function AddNoteForm({ closeForm, onNotesUpload }) {
   const [formData, setFormData] = useState({
@@ -93,7 +94,7 @@ export default function AddNoteForm({ closeForm, onNotesUpload }) {
         }
       }
     } catch (error) {
-      toast.error(error.response.data.message);
+      errorHandler(error, setUserData, setIsLoggedin, navigate);
     } finally {
       setLoader(false);
       closeForm(false);

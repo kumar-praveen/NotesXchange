@@ -22,7 +22,6 @@ export default function Navbar() {
       setLoader(true);
       const response = await axios.get(`${backendUrl}/api/user/logout`);
       if (response.data.success) {
-        localStorage.removeItem("token");
         toast.success(response.data.message);
         reset();
         navigate("/");
@@ -113,7 +112,7 @@ export default function Navbar() {
                   {/* Logout */}
                   <Button
                     onClick={logoutHandler}
-                    className="w-full mt-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 text-white font-medium rounded-xl flex items-center justify-center gap-2 text-sm sm:text-base"
+                    className="w-full mt-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 text-white font-medium rounded-xl flex items-center justify-center gap-2 text-sm sm:text-base cursor-pointer"
                   >
                     {loader && <Loader2 className="animate-spin h-4 w-4" />}
                     Logout <LogOut />
@@ -189,7 +188,7 @@ export default function Navbar() {
                     <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-2"></div>
                     <Button
                       onClick={logoutHandler}
-                      className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 text-white font-medium rounded-lg flex items-center justify-center gap-2 text-sm sm:text-base"
+                      className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 text-white font-medium rounded-lg flex items-center justify-center gap-2 text-sm sm:text-base cursor-pointer"
                     >
                       Logout
                     </Button>

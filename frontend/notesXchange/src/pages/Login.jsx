@@ -5,6 +5,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useAppStore } from "../store/useAppStore";
 import { jwtDecode } from "jwt-decode";
+import { errorHandler } from "../lib/utils";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -19,6 +20,7 @@ export default function Login() {
     e.preventDefault();
     try {
       setLoader(true);
+
       const response = await axios.post(
         `${backendUrl}/api/user/login`,
         { email, password },
@@ -31,21 +33,13 @@ export default function Login() {
       );
 
       if (response.data.success) {
-        localStorage.setItem("token", response.data.token);
         toast.success("Logged in successfully");
         setUserData(response.data.user);
         setIsLoggedin(true);
         navigate("/");
-        const decoded = jwtDecode(response.data.token);
-        const expiryTime = decoded.exp * 1000 - Date.now();
-        setTimeout(() => {
-          localStorage.removeItem("token");
-          reset();
-          toast.error("Session expired. Please login again");
-        }, expiryTime);
       }
     } catch (err) {
-      toast.error(err.response?.data?.message);
+      errorHandler(err, setUserData, setIsLoggedin, navigate);
     } finally {
       setLoader(false);
     }
@@ -83,7 +77,6 @@ export default function Login() {
               className="w-full pl-10 pr-4 py-2 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-400 focus:outline-none"
             />
           </div>
-
 
           <div className="text-right">
             <a href="#" className="text-sm text-indigo-500 hover:underline">

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useAppStore } from "../store/useAppStore";
+import { errorHandler } from "../lib/utils";
 
 export default function Signup() {
   const [fullname, setFullName] = useState("");
@@ -39,7 +40,7 @@ export default function Signup() {
         navigate("/");
       }
     } catch (err) {
-      toast.error(err.response?.data?.message);
+      errorHandler(err, setUserData, setIsLoggedin, navigate);
       navigate("/");
     } finally {
       setLoader(false);

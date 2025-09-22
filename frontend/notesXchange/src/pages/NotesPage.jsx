@@ -9,9 +9,11 @@ import AddNote from "../components/AddNote";
 import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 import { Search } from "lucide-react";
+import { errorHandler } from "../lib/utils";
 
 export default function NotesPage() {
-  const { backendUrl, userData, isLoggedin } = useAppStore();
+  const { backendUrl, userData, isLoggedin, setUserData, setIsLoggedin } =
+    useAppStore();
   let [notes, setNotes] = useState([]);
   let [allNotes, setAllNotes] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -35,7 +37,7 @@ export default function NotesPage() {
         setAllNotes(response.data.notes);
       }
     } catch (error) {
-      toast.error(error.response.data.message || "Something went wrong");
+      errorHandler(error);
     } finally {
       setGlobalLoading(false);
     }
@@ -99,7 +101,7 @@ export default function NotesPage() {
         }
       }
     } catch (error) {
-      toast.error(error.response.data.message);
+      errorHandler(error, setUserData, setIsLoggedin, navigate);
     }
   };
 

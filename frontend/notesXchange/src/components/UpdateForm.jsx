@@ -14,6 +14,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { errorHandler } from "../lib/utils";
 
 export default function UpdateForm({ note }) {
   const [formData, setFormData] = useState({
@@ -101,7 +102,7 @@ export default function UpdateForm({ note }) {
         navigate("/notes");
       }
     } catch (error) {
-      toast.error(error.response?.data?.message || "Notes update failed");
+      errorHandler(error, setUserData, setIsLoggedin, navigate);
       navigate("/notes");
     } finally {
       setLoader(false);
