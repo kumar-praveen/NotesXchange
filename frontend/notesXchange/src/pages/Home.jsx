@@ -43,7 +43,7 @@ const Home = () => {
           className="mt-8 flex gap-4"
         >
           <Link
-            to={`${isLoggedin ? "/notes" : "/auth"}`}
+            to={`${isLoggedin ? "/notes" : "/login"}`}
             className="px-6 py-3 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition font-semibold"
           >
             Get Started
