@@ -6,8 +6,8 @@ import { useAppStore } from "../store/useAppStore";
 const Home = () => {
   const { isLoggedin, userData } = useAppStore();
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900 flex flex-col ">
-      <section className="flex flex-col items-center justify-center flex-1 px-6 py-16 text-center bg-gradient-to-b from-white to-gray-100">
+    <section className="min-h-full w-full text-gray-900 flex flex-col">
+      <div className="flex flex-col items-center justify-center flex-1 px-6 py-16 text-center">
         <h1 className="text-2xl font-bold">
           Hey, {isLoggedin ? userData.fullname : "User"}
         </h1>
@@ -55,52 +55,8 @@ const Home = () => {
             Browse Notes
           </Link>
         </motion.div>
-      </section>
-
-      <section className="bg-white py-16 px-6">
-        <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">
-          Why{" "}
-          <span className="font-extrabold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-            Notes<span className="text-gray-800">X</span>change ?
-          </span>
-        </h2>
-        <div className="grid gap-8 md:grid-cols-3 max-w-5xl mx-auto">
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="p-6 bg-gray-100 rounded-2xl shadow-md text-center"
-          >
-            <BookOpen className="w-12 h-12 text-blue-600 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold mb-2">Access Notes</h3>
-            <p className="text-gray-600">
-              Browse and download notes uploaded by students across different
-              subjects.
-            </p>
-          </motion.div>
-
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="p-6 bg-gray-100 rounded-2xl shadow-md text-center"
-          >
-            <Upload className="w-12 h-12 text-green-600 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold mb-2">Upload Easily</h3>
-            <p className="text-gray-600">
-              Share your own notes with the community in just a few clicks.
-            </p>
-          </motion.div>
-
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="p-6 bg-gray-100 rounded-2xl shadow-md text-center"
-          >
-            <Users className="w-12 h-12 text-purple-600 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold mb-2">Join Community</h3>
-            <p className="text-gray-600">
-              Connect with students, collaborate, and grow together.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 };
 

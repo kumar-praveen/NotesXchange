@@ -46,68 +46,76 @@ export default function Login() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-indigo-50 via-white to-indigo-100 px-3">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8">
-        <h2 className="text-3xl font-bold text-center text-gray-800">
-          Welcome Back
-        </h2>
-        <p className="text-center text-gray-500 mb-6">Login</p>
+    <div className="w-[90%]  mx-auto min-h-full flex flex-col md:flex-row items-center justify-center gap-12">
+      {/* Left: Login Form */}
+      <div className="w-full flex-1 h-full flex items-center justify-center ">
+        <div className="w-full h-full p-10 bg-white rounded-2xl shadow-xl">
+          <h2 className="text-3xl font-bold text-center text-gray-800">
+            Welcome Back
+          </h2>
+          <p className="text-center text-gray-500 mb-6">Login</p>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="relative">
-            <Mail className="absolute left-3 top-3 text-gray-400" size={18} />
-            <input
-              type="email"
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email ID"
-              className="w-full pl-10 pr-4 py-2 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-400 focus:outline-none"
-            />
-          </div>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="relative">
+              <Mail className="absolute left-3 top-3 text-gray-400" size={18} />
+              <input
+                type="email"
+                name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email ID"
+                className="w-full pl-10 pr-4 py-2 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-400 focus:outline-none"
+              />
+            </div>
 
-          <div className="relative">
-            <Lock className="absolute left-3 top-3 text-gray-400" size={18} />
-            <input
-              type="password"
-              name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Password"
-              className="w-full pl-10 pr-4 py-2 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-400 focus:outline-none"
-            />
-          </div>
+            <div className="relative">
+              <Lock className="absolute left-3 top-3 text-gray-400" size={18} />
+              <input
+                type="password"
+                name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Password"
+                className="w-full pl-10 pr-4 py-2 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-400 focus:outline-none"
+              />
+            </div>
 
-          <div className="text-right">
-            <a href="#" className="text-sm text-indigo-500 hover:underline">
-              Forgot password?
-            </a>
-          </div>
+            <div className="text-right">
+              <a href="#" className="text-sm text-indigo-500 hover:underline">
+                Forgot password?
+              </a>
+            </div>
 
-          <button
-            type="submit"
-            className={
-              "w-full py-2.5 rounded-xl text-white font-semibold shadow-md bg-gradient-to-r from-indigo-500 to-indigo-600 hover:opacity-90 transition cursor-pointer flex items-center justify-center gap-2"
-            }
-            disabled={loader}
-          >
-            {loader && <Loader2 className="animate-spin" />}
-            Login
-          </button>
-        </form>
+            <button
+              type="submit"
+              className="w-full py-2.5 rounded-xl text-white font-semibold shadow-md bg-gradient-to-r from-indigo-500 to-indigo-600 hover:opacity-90 transition cursor-pointer flex items-center justify-center gap-2"
+              disabled={loader}
+            >
+              {loader && <Loader2 className="animate-spin" />}
+              Login
+            </button>
+          </form>
 
-        <p className="text-center text-gray-600 mt-5 text-sm">
-          Don't have account?
-          <span
-            onClick={() => {
-              navigate("/signup");
-            }}
-            className="text-indigo-600 font-medium hover:underline cursor-pointer"
-          >
-            {" "}
-            Signup here
-          </span>
-        </p>
+          <p className="text-center text-gray-600 mt-5 text-sm">
+            Don't have an account?
+            <span
+              onClick={() => navigate("/signup")}
+              className="text-indigo-600 font-medium hover:underline cursor-pointer"
+            >
+              {" "}
+              Signup here
+            </span>
+          </p>
+        </div>
+      </div>
+
+      {/* Right: Image */}
+      <div className="flex-1 h-full flex items-center justify-center">
+        <img
+          src="/notes_image.avif"
+          alt="notes-images"
+          className="w-full h-full rounded-2xl shadow-lg object-cover"
+        />
       </div>
     </div>
   );

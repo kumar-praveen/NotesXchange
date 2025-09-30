@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
-      <main className="flex-grow">
+      <main className="flex-1 flex bg-gradient-to-r from-indigo-50 via-white to-indigo-100 py-10">
         <Outlet />
       </main>
       <Footer />
