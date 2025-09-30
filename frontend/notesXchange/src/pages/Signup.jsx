@@ -48,7 +48,7 @@ export default function Signup() {
   };
 
   return (
-    <div className="w-[90%] mx-auto min-h-full flex flex-col md:flex-row items-center justify-center gap-6 bg-gradient-to-r from-indigo-50 via-white to-indigo-100">
+    <div className="w-[90%] mx-auto min-h-full flex flex-col md:flex-row items-center justify-center gap-6">
       {/* Left: Signup Form */}
 
       {/* Right: Image */}

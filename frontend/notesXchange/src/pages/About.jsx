@@ -3,10 +3,10 @@ import { BookOpen, Upload, Users } from "lucide-react";
 
 export default function About() {
   return (
-    <section className="flex  flex-col gap-16 items-center justify-center min-h-full w-full text-center">
-      <div className="w-[90%] mx-auto flex flex-col items-start ">
+    <section className="flex  flex-col gap-8 items-center justify-center min-h-full w-full text-center">
+      <div className="w-[90%] mx-auto flex flex-col items-start gap-3">
         <motion.h1
-          className="text-xl sm:text-3xl md:text-3xl lg:text-4xl font-semibold text-gray-800"
+          className="text-3xl lg:text-4xl font-semibold text-gray-800"
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -18,7 +18,7 @@ export default function About() {
         </motion.h1>
 
         <motion.p
-          className="mt-4 max-w-2xl text-gray-600 leading-relaxed text-justify"
+          className="max-w-2xl text-gray-600 leading-relaxed text-justify"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
@@ -33,28 +33,28 @@ export default function About() {
         </motion.p>
 
         <motion.div
-          className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl"
+          className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.4 }}
         >
-          <div className="p-6 bg-white rounded-2xl shadow-md hover:shadow-lg transition">
-            <h3 className="text-xl font-semibold text-indigo-600">
+          <div className="p-4 bg-white rounded-2xl shadow-md hover:shadow-lg transition">
+            <h3 className="text-xl font-semibold text-indigo-600 text-nowrap">
               📘 Upload Notes
             </h3>
-            <p className="mt-2 text-gray-600 text-sm text-justify">
+            <p className="mt-2 text-gray-600 text-sm">
               Share your knowledge by uploading notes and helping others learn.
             </p>
           </div>
-          <div className="p-6 bg-white rounded-2xl shadow-md hover:shadow-lg transition">
-            <h3 className="text-xl font-semibold text-green-600">
+          <div className="p-4 bg-white rounded-2xl shadow-md hover:shadow-lg transition">
+            <h3 className="text-xl font-semibold text-green-600 text-nowrap">
               🔍 Explore Notes
             </h3>
-            <p className="mt-2 text-gray-600 text-sm text-justify">
+            <p className="mt-2 text-gray-600 text-sm">
               Discover a wide range of notes from different subjects and topics.
             </p>
           </div>
-          <div className="p-6 bg-white rounded-2xl shadow-md hover:shadow-lg transition">
+          <div className="p-4 bg-white rounded-2xl shadow-md hover:shadow-lg transition">
             <h3 className="text-xl font-semibold text-orange-600">
               🤝 Collaborate
             </h3>
@@ -65,14 +65,14 @@ export default function About() {
         </motion.div>
       </div>
 
-      <div className="w-[90%] mx-auto flex flex-col gap-4 items-end ">
+      <div className="w-[90%] mx-auto flex flex-col gap-4 items-start lg:items-end ">
         <h2 className="text-3xl font-bold text-gray-900">
           Why{" "}
           <span className="font-extrabold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
             Notes<span className="text-gray-800">X</span>change ?
           </span>
         </h2>
-        <div className="grid gap-8 md:grid-cols-3 max-w-4xl">
+        <div className="grid gap-4 md:grid-cols-3 max-w-4xl">
           <motion.div
             whileHover={{ scale: 1.05 }}
             className="p-3 bg-white rounded-2xl shadow-md text-center"

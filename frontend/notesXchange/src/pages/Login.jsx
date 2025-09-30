@@ -47,7 +47,6 @@ export default function Login() {
 
   return (
     <div className="w-[90%]  mx-auto min-h-full flex flex-col md:flex-row items-center justify-center gap-12">
-      {/* Left: Login Form */}
       <div className="w-full flex-1 h-full flex items-center justify-center ">
         <div className="w-full h-full p-10 bg-white rounded-2xl shadow-xl">
           <h2 className="text-3xl font-bold text-center text-gray-800">

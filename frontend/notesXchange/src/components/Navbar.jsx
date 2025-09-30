@@ -144,21 +144,21 @@ export default function Navbar() {
         <div className="md:hidden bg-white/90 backdrop-blur-md shadow-lg px-4 sm:px-6 py-4 space-y-4 animate-slideDown rounded-b-2xl">
           <NavLink
             to="/"
-            className="block text-gray-700 hover:text-indigo-600 transition text-sm sm:text-base"
+            className="block text-gray-700 hover:text-indigo-600 transition text-sm sm:text-base border-b"
             onClick={() => setIsOpen(false)}
           >
             Home
           </NavLink>
           <NavLink
             to="/notes"
-            className="block text-gray-700 hover:text-indigo-600 transition text-sm sm:text-base"
+            className="block text-gray-700 hover:text-indigo-600 transition text-sm sm:text-base border-b"
             onClick={() => setIsOpen(false)}
           >
             Notes
           </NavLink>
           <NavLink
             to="/about"
-            className="block text-gray-700 hover:text-indigo-600 transition text-sm sm:text-base"
+            className="block text-gray-700 hover:text-indigo-600 transition text-sm sm:text-base border-b"
             onClick={() => setIsOpen(false)}
           >
             About
