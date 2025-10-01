@@ -2,7 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useAppStore } from "../store/useAppStore";
 import AddNote from "../components/AddNote";
@@ -24,8 +24,20 @@ export default function NotesPage() {
   let [allNotes, setAllNotes] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const { setGlobalLoading } = useAppStore();
-
   const navigate = useNavigate();
+  const containerRef = useRef(null);
+  const [width, setWidth] = useState(0);
+
+  useEffect(() => {
+    function handleResize() {
+      if (containerRef.current) {
+        setWidth(containerRef.current.offsetWidth);
+      }
+    }
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     if (!isLoggedin) {
@@ -159,9 +171,12 @@ export default function NotesPage() {
                   </span>
                 </div>
 
-                <div className="w-full h-32 overflow-hidden flex justify-center border-2 rounded-sm">
+                <div
+                  ref={containerRef}
+                  className="w-full h-32 overflow-hidden flex justify-center border-2 rounded-sm"
+                >
                   <Document file={note.fileUrl}>
-                    <Page pageNumber={1} width={400}/>
+                    <Page pageNumber={1} width={width ? width : 400} />
                   </Document>
                 </div>
 

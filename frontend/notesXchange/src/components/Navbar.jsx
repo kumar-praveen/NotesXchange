@@ -39,7 +39,7 @@ export default function Navbar() {
         {/* Logo */}
         <NavLink
           to="/"
-          className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent"
+          className="text-xl sm:text-2xl md:text-3xl lg:text-3xl font-extrabold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent"
         >
           Notes<span className="text-gray-800">X</span>change
         </NavLink>
