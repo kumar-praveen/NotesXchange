@@ -112,8 +112,8 @@ export default function UpdateForm({ note }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <Button variant="outline" className="cursor-pointer">
-          Update
+        <Button size='sm' className="cursor-pointer bg-amber-500 hover:bg-amber-500 hover:opacity-80">
+          Edit Notes
           <EditIcon />
         </Button>
       </DialogTrigger>

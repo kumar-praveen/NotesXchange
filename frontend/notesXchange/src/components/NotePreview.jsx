@@ -70,7 +70,7 @@ export default function NotePreview() {
 
   if (!notes) {
     return (
-      <div className="flex flex-col items-center justify-center h-[70vh] text-center px-4">
+      <div className="w-full flex flex-col items-center justify-center h-[70vh] text-center px-4">
         <FileX className="h-16 w-16 text-red-500 mb-4" />
         <p className="text-lg sm:text-xl font-semibold text-gray-700 dark:text-gray-300">
           PDF for this note is not available
@@ -83,31 +83,60 @@ export default function NotePreview() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div className="w-full h-full">
+      <div className="w-[90%] mx-auto">
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 h-full">
           {/* Left: Note Details */}
           <div className="lg:w-1/3 xl:w-2/5 flex flex-col gap-6">
             {/* Note Info Card */}
             <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
-              <div className="bg-gradient-to-r from-indigo-500 to-purple-600 p-4 text-white">
-                <div className="flex items-center gap-2 mb-2">
-                  <FileText className="h-5 w-5" />
-                  <span className="text-xs sm:text-sm md:text-base font-medium opacity-90">
+              <div className="border-b p-3">
+                <h1 className="text-lg sm:text-xl md:text-2xl lg:text-2xl font-semibold">
+                  {notes.title}
+                </h1>
+                <div className="flex items-center gap-2">
+                  <FileText className="h-4 w-4 text-gray-500" />
+                  <span className="text-sm font-medium opacity-90 text-gray-500">
                     {notes.subject}
                   </span>
                 </div>
-                <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold leading-tight">
-                  {notes.title}
-                </h1>
               </div>
 
-              <div className="p-4 sm:p-6">
-                <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4 sm:mb-6 text-sm sm:text-base">
+              <div className="p-4 flex flex-col gap-4">
+                <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base text-justify">
                   {notes.description}
                 </p>
 
-                <div className="flex flex-wrap gap-4 text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-4 sm:mb-6">
+                <div className="flex flex-wrap gap-3 items-center">
+                  <Button size="sm">
+                    <a
+                      href={notes.fileUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 font-semibold"
+                    >
+                      <ExternalLink className="h-4 w-4" />
+                      Open PDF in New Tab
+                    </a>
+                  </Button>
+
+                  {userData && userData.id === notes.uploadedBy && (
+                    <div className="flex gap-2 items-center flex-wrap">
+                      <UpdateForm note={notes} />
+
+                      <Button size="sm" className='bg-red-500 cursor-pointer hover:bg-red-500 hover:opacity-80' onClick={() => handleDelete(notes._id)}>
+                        {loading ? (
+                          <Loader2 className="animate-spin h-4 w-4" />
+                        ) : (
+                          <Trash2 className="h-4 w-4" />
+                        )}
+                        {loading ? "Deleting..." : "Delete"}
+                      </Button>
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex flex-wrap gap-4 text-xs sm:text-sm text-slate-500 dark:text-slate-400">
                   <div className="flex items-center gap-1">
                     <User className="h-4 w-4" />
                     <span>Created by {notes.uploadedByName || "Unknown"}</span>
@@ -118,36 +147,6 @@ export default function NotePreview() {
                       {new Date(notes.createdAt).toLocaleDateString()}
                     </span>
                   </div>
-                </div>
-
-                <div className="flex flex-wrap gap-3">
-                  <a
-                    href={notes.fileUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-all duration-200 text-sm sm:text-base md:text-lg font-medium shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
-                  >
-                    <ExternalLink className="h-4 w-4" />
-                    Open PDF in New Tab
-                  </a>
-
-                  {userData && userData.id === notes.uploadedBy && (
-                    <div className="flex gap-2 flex-wrap mt-2 sm:mt-0">
-                      <UpdateForm note={notes} />
-
-                      <button
-                        onClick={() => handleDelete(notes._id)}
-                        className="inline-flex items-center gap-2 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-all duration-200 text-sm sm:text-base md:text-lg font-medium shadow-md hover:shadow-lg transform hover:-translate-y-0.5 cursor-pointer"
-                      >
-                        {loading ? (
-                          <Loader2 className="animate-spin h-4 w-4" />
-                        ) : (
-                          <Trash2 className="h-4 w-4" />
-                        )}
-                        {loading ? "Deleting..." : "Delete"}
-                      </button>
-                    </div>
-                  )}
                 </div>
               </div>
             </div>

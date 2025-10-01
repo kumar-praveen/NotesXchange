@@ -10,6 +10,12 @@ import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 import { Search } from "lucide-react";
 import { errorHandler } from "../lib/utils";
+import { Document, Page } from "react-pdf";
+import "react-pdf/dist/Page/AnnotationLayer.css";
+import "react-pdf/dist/Page/TextLayer.css";
+import { pdfjs } from "react-pdf";
+
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 export default function NotesPage() {
   const { backendUrl, userData, isLoggedin, setUserData, setIsLoggedin } =
@@ -106,26 +112,22 @@ export default function NotesPage() {
   };
 
   return (
-    <div className="p-8 max-w-7xl mx-auto">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-800">Notes Library</h1>
-        <AddNote onNotesUpload={fetchNotes} />
-      </div>
+    <div className="w-[90%] mx-auto flex flex-col gap-6 items-start">
+      <h1 className="text-3xl font-bold text-gray-800">Notes Library</h1>
 
-      <div className="relative w-full max-w-md mx-auto">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-indigo-600 h-5 w-5" />
+      <div className="w-full lg:w-[60%] relative flex flex-col md:flex-row gap-4">
         <Input
           type="text"
           placeholder="Search notes by title, subject..."
-          className="pl-10 pr-4 py-3 w-full rounded-2xl border border-gray-300 bg-gray-50 
-               focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 
-               shadow-sm transition-all"
+          className="w-full rounded-lg pl-10 py-4 transition-all"
           onChange={handleSearch}
           value={searchQuery}
         />
+        <Search className="absolute top-1/12 left-3 md:left-3 md:top-1/2 md:-translate-y-1/2 text-indigo-600 h-5 w-5" />
+        <AddNote onNotesUpload={fetchNotes} />
       </div>
 
-      <div className="p-4 flex items-start gap-2 overflow-x-scroll">
+      <div className="w-full flex items-start gap-2 overflow-x-scroll">
         {filterOptions.map((item) => (
           <Button
             onClick={() => handleFilter(item)}
@@ -138,7 +140,7 @@ export default function NotesPage() {
         ))}
       </div>
 
-      <div className="py-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {notes.map((note, index) => (
           <motion.div
             key={index}
@@ -146,26 +148,36 @@ export default function NotesPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
           >
-            <Card className="shadow-md rounded-xl hover:shadow-lg transition flex flex-col h-48">
-              <CardContent className="flex flex-col flex-grow">
-                <h2 className="text-base font-semibold text-indigo-600 mb-1">
-                  {note.title}
-                </h2>
+            <Card className="shadow-md rounded-xl hover:shadow-lg transition flex flex-col">
+              <CardContent className="flex flex-col h-full gap-3">
+                <div>
+                  <h2 className="text-base font-semibold text-indigo-600">
+                    {note.title}
+                  </h2>
+                  <span className="w-fit inline-block text-xs text-gray-500 bg-gray-100 px-1 py-0.5 rounded">
+                    {note.subject}
+                  </span>
+                </div>
 
-                <span className="w-fit inline-block text-xs text-gray-500 mb-1 bg-gray-100 px-1 py-0.5 rounded">
-                  {note.subject}
-                </span>
+                <div className="w-full h-32 overflow-hidden flex justify-center border-2 rounded-sm">
+                  <Document file={note.fileUrl}>
+                    <Page pageNumber={1} width={400}/>
+                  </Document>
+                </div>
 
-                <p className="text-md mt-2 text-gray-700 dark:text-gray-300 mb-3 line-clamp-2">
+                <p className="text-md text-gray-700 dark:text-gray-300 line-clamp-1">
                   {note.description}
                 </p>
 
-                <div className="mt-auto flex justify-between items-center">
+                {/* This ensures button always sticks to bottom */}
+                <div className="w-full flex justify-end mt-auto">
                   <Link
                     to={`/notes/${note._id}`}
-                    className="text-xs text-indigo-600 hover:underline text-right"
+                    className="text-xs text-indigo-600 hover:underline"
                   >
-                    See more →
+                    <Button size="sm" className="cursor-pointer">
+                      See more →
+                    </Button>
                   </Link>
                 </div>
               </CardContent>

@@ -102,12 +102,12 @@ export default function AddNoteForm({ closeForm, onNotesUpload }) {
   };
 
   return (
-    <div className="bg-gradient-to-br from-slate-50 to-blue-50 flex items-center justify-center p-3">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-lg border border-slate-200">
+    
+      <div className="w-full max-w-md  rounded-2xl shadow-lg border border-slate-200">
         {/* Compact Header */}
         <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-5 py-4 rounded-t-2xl">
           <h1 className="text-xl font-bold text-white text-center">
-            Add New Notes
+            Upload New Notes
           </h1>
           <p className="text-blue-100 text-center text-xs mt-1">
             Share your own notes with others
@@ -234,6 +234,6 @@ export default function AddNoteForm({ closeForm, onNotesUpload }) {
           </p>
         </div>
       </div>
-    </div>
+    
   );
 }
