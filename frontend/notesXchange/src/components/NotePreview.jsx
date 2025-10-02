@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import UpdateForm from "./UpdateForm"; // adjust path
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useAppStore } from "../store/useAppStore";
 import toast from "react-hot-toast";
@@ -27,6 +27,19 @@ export default function NotePreview() {
   const [loading, setLoading] = useState(false);
   const { setGlobalLoading } = useAppStore();
   const [numPages, setNumPages] = useState(null);
+  const containerRef = useRef(null);
+  const [width, setWidth] = useState(0);
+
+  useEffect(() => {
+    function handleResize() {
+      if (containerRef.current) {
+        setWidth(containerRef.current.offsetWidth);
+      }
+    }
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const onDocumentLoadSuccess = ({ numPages }) => {
     setNumPages(numPages);
@@ -197,7 +210,10 @@ export default function NotePreview() {
               </Button>
             </Link>
           </div>
-          <div className="h-screen overflow-y-scroll no-scrollbar rounded-md">
+          <div
+            ref={containerRef}
+            className="h-screen overflow-y-scroll no-scrollbar rounded-md"
+          >
             <Document
               file={notes.fileUrl}
               onLoadSuccess={onDocumentLoadSuccess}
@@ -207,7 +223,7 @@ export default function NotePreview() {
                   key={`page_${index + 1}`}
                   className="snap-start flex justify-center items-center m-4"
                 >
-                  <Page pageNumber={index + 1} width={600} />
+                  <Page pageNumber={index + 1} width={width ? width : 600} />
                 </div>
               ))}
             </Document>
